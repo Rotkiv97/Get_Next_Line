@@ -128,3 +128,29 @@ char	*get_next_line(int fd)
 	stash = ft_clear_stash(stash, line);
 	return (line);
 }
+
+int	main(int argc, char **argv)
+{
+    int		fd;
+    char	*line;
+
+    if (argc != 2)
+    {
+        return (1);
+    }
+
+    fd = open(argv[1], O_RDONLY);
+    if (fd == -1)
+    {
+        perror("\033[31mError file\033[0m");
+        return (1);
+    }
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("\033[32m%s\033[0m", line);
+        free(line);
+    }
+	printf("\n");
+    close(fd);
+    return (0);
+}
